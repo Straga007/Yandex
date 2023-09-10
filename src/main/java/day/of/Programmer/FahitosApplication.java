@@ -10,7 +10,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.io.IOException;
 
 @SpringBootApplication
 public class FahitosApplication {
@@ -19,34 +18,34 @@ public class FahitosApplication {
         //SpringApplication.run(FahitosApplication.class, args);
         String url = "http://ya.praktikum.fvds.ru:8080/dev-day/register";
 
-		String mainAnswer = "42";
+        String mainAnswer = "42";
 
-		String json = "{\"name\": \"Group 6(Day of Programmer)\", \"gitHubUrl\":\"https://github.com/Straga007/Yandex.git\", \"participants\": [{\"email\": \"straga07@yandex.ru\", \"cohort\": \"java_25\", \"firstName\": \"Georgiy\", \"lastName\":\"Shukov\"}]}";
+        String json = "{\"name\": \"Group 6(Day of Programmer)\", \"gitHubUrl\":\"https://github.com/Straga007/Yandex.git\", \"participants\": [{\"email\": \"straga07@yandex.ru\", \"cohort\": \"java_25\", \"firstName\": \"Georgiy\", \"lastName\":\"Shukov\"}]}";
 
-		try {
-			CloseableHttpClient httpClient = HttpClients.createDefault();
+        try {
+            CloseableHttpClient httpClient = HttpClients.createDefault();
 
-			HttpPost httpPost = new HttpPost(url);
+            HttpPost httpPost = new HttpPost(url);
 
-			httpPost.setHeader("MAIN_ANSWER", mainAnswer);
+            httpPost.setHeader("MAIN_ANSWER", mainAnswer);
 
-			StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
-			httpPost.setEntity(entity);
+            StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
+            httpPost.setEntity(entity);
 
-			CloseableHttpResponse response = httpClient.execute(httpPost);
+            CloseableHttpResponse response = httpClient.execute(httpPost);
 
-			HttpEntity responseEntity = response.getEntity();
-			String responseBody = EntityUtils.toString(responseEntity);
+            HttpEntity responseEntity = response.getEntity();
+            String responseBody = EntityUtils.toString(responseEntity);
 
-			System.out.println("Ответ сервера:");
-			System.out.println(responseBody);
+            System.out.println("Ответ сервера:");
+            System.out.println(responseBody);
 
-			response.close();
-			httpClient.close();
+            response.close();
+            httpClient.close();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

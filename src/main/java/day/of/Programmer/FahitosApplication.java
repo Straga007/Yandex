@@ -8,26 +8,22 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
-@SpringBootApplication
 public class FahitosApplication {
 
     public static void main(String[] args) {
-        //SpringApplication.run(FahitosApplication.class, args);
-        String url = "http://ya.praktikum.fvds.ru:8080/dev-day/register";
+        String url = "http://ya.praktikum.fvds.ru:8080/dev-day/task/2";
 
-        String mainAnswer = "42";
+        String encodedText = "XQLU Q VKD AEJBYD SETYDW TQO";
+        int offset = 16;
 
-        String json = "{\"name\": \"Group 6(Day of Programmer)\", \"gitHubUrl\":\"https://github.com/Straga007/Yandex.git\", \"participants\": [{\"email\": \"straga07@yandex.ru\", \"cohort\": \"java_25\", \"firstName\": \"Georgiy\", \"lastName\":\"Shukov\"}]}";
+        String decodedText = decode(encodedText, offset);
+
+        String json = "{\"decoded\": \"" + decodedText + "\"}";
 
         try {
             CloseableHttpClient httpClient = HttpClients.createDefault();
-
             HttpPost httpPost = new HttpPost(url);
-
-            httpPost.setHeader("MAIN_ANSWER", mainAnswer);
 
             StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
             httpPost.setEntity(entity);
@@ -48,4 +44,17 @@ public class FahitosApplication {
         }
     }
 
+    private static String decode(String encodedText, int offset) {
+        StringBuilder decodedText = new StringBuilder();
+        for (char c : encodedText.toCharArray()) {
+            if (Character.isLetter(c)) {
+                char base = Character.isLowerCase(c) ? 'a' : 'A';
+                decodedText.append((char) (((c - base - offset + 26) % 26) + base));
+            } else {
+                decodedText.append(c);
+            }
+        }
+        return decodedText.toString();
+    }
 }
+

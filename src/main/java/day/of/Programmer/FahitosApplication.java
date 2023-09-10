@@ -14,8 +14,8 @@ public class FahitosApplication {
     public static void main(String[] args) {
         String url = "http://ya.praktikum.fvds.ru:8080/dev-day/task/2";
 
-        String encodedText = "XQLU Q VKD AEJBYD SETYDW TQO";
-        int offset = 16;
+        String encodedText = "BUPY U JYLZYWN JBJ WIXCHA XUS";
+        int offset = 20;
 
         String decodedText = decode(encodedText, offset);
 
@@ -24,6 +24,9 @@ public class FahitosApplication {
         try {
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost(url);
+
+            // Добавляем заголовок AUTH_TOKEN
+            httpPost.setHeader("AUTH_TOKEN", "f538ec47-514d-4051-8be9-0e91bf174b6e");
 
             StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
             httpPost.setEntity(entity);
@@ -57,4 +60,3 @@ public class FahitosApplication {
         return decodedText.toString();
     }
 }
-
